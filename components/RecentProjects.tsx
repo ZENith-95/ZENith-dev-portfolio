@@ -92,7 +92,7 @@ const RecentProjects = () => {
         ))}
       </div>
       <a
-        className="flex justify-self-center"
+        className="flex justify-self-center mt-10"
         href="https://github.com/ZENith-95?tab=repositories"
         target="_blank">
         <MagicButton

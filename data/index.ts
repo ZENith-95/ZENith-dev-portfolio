@@ -243,4 +243,9 @@ export const socialMedia = [
     img: "/link.svg",
     link: "https://www.linkedin.com/in/dzorgbenyui-kudiabor-a9a13a288?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
   },
+  {
+    id: 4,
+    img: "/disc.svg",
+    link: "https://https://discordapp.com/users/1022117896547221535",
+  },
 ];
