@@ -69,6 +69,7 @@
 @layer base {
   * {
     @apply border-border !scroll-smooth;
+    font-family: var(--font-kanit);
   }
   body {
     @apply bg-background text-foreground;
@@ -80,7 +81,6 @@
 
 @layer utilities {
   .heading {
-    @apply font-bold text-4xl md:text-5xl text-center;
+    @apply font-bold text-4xl md:text-5xl text-center font-kanit;
   }
 }
-

@@ -81,6 +81,9 @@ const config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      fontFamily: {
+        kanit: ["var(--font-kanit)"],
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
