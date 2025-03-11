@@ -6,6 +6,7 @@ import { FaLocationArrow } from "react-icons/fa6";
 
 import { projects } from "@/data";
 import { PinContainer } from "./ui/Pin";
+import MagicButton from "./MagicButton";
 
 const RecentProjects = () => {
   const [isClient, setIsClient] = useState(false);
@@ -19,7 +20,7 @@ const RecentProjects = () => {
   }
 
   return (
-    <div className="py-20">
+    <div className="py-20 flex flex-col items-center justify-center">
       <h1 className="heading">
         A small selection of{" "}
         <span className="text-purple">recent projects</span>
@@ -33,10 +34,7 @@ const RecentProjects = () => {
             key={item.id}>
             {item && (
               <div className="lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw] my-8">
-                <PinContainer
-                  title={item?.link || ""}
-                  href={item?.link || ""}
-                  >
+                <PinContainer title={item?.link || ""} href={item?.link || ""}>
                   <div className="relative flex items-center justify-center sm:w-96 w-[80vw] overflow-hidden h-[40vh] lg:h-[35vh] mb-10">
                     <div
                       className="relative w-full h-full overflow-hidden lg:rounded-3xl"
@@ -93,6 +91,16 @@ const RecentProjects = () => {
           </a>
         ))}
       </div>
+      <a
+        className="flex justify-self-center"
+        href="https://github.com/ZENith-95?tab=repositories"
+        target="_blank">
+        <MagicButton
+          title="View More Projects"
+          icon={<FaLocationArrow />}
+          position="right"
+        />
+      </a>
     </div>
   );
 };

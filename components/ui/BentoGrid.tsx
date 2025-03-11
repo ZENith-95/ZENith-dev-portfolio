@@ -55,7 +55,6 @@ export const BentoGridItem = ({
 
   const [copied, setCopied] = useState(false);
 
-
   const handleCopy = () => {
     const text = "dz.korbla@gmail.com";
     navigator.clipboard.writeText(text);
@@ -128,14 +127,14 @@ export const BentoGridItem = ({
 
           {/* Tech stack list div */}
           {id === 3 && (
-            <div className="flex gap-1 lg:gap-3 w-fit absolute -right-3 lg:-right-2">
+            <div className="flex gap-1 lg:gap-3 w-fit absolute right-2 lg:right-2">
               {/* tech stack lists */}
               <div className="flex flex-col gap-3 md:gap-2 lg:gap-2 lg:pt-5">
                 {leftLists.map((item, i) => (
                   <span
                     key={i}
-                    className="lg:py-3 lg:px-3 py-2 px-3 text-xs lg:text-base opacity-50 
-                    lg:opacity-100 rounded-lg text-center bg-[#10132E]">
+                    className="lg:py-3 lg:px-3 py-2 px-3 text-xs cursor-crosshair lg:text-base opacity-50 
+                    lg:opacity-100 rounded-lg text-center hover:bg-[#101392] bg-[#10132E]">
                     {item}
                   </span>
                 ))}
@@ -146,7 +145,7 @@ export const BentoGridItem = ({
                 {rightLists.map((item, i) => (
                   <span
                     key={i}
-                    className="lg:py-3 lg:px-3 py-2 px-3 text-xs lg:text-base opacity-50 
+                    className="lg:py-3 lg:px-3 py-2 px-3 text-xs hover:bg-[#101392] lg:text-base opacity-50 cursor-crosshair
                     lg:opacity-100 rounded-lg text-center bg-[#10132E]">
                     {item}
                   </span>

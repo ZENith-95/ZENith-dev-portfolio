@@ -40,7 +40,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
               key={info.id}>
-              <div className="w-10 h-10 cursor-pointer flex hover:bg-blue justify-center items-center backdrop-filter backdrop-blur-lg bg-[rgb(7, 3, 252)] rounded-lg border border-black-300">
+              <div className="w-10 h-10 cursor-pointer flex hover:bg-[rgba(33, 1, 92, 0.44)] justify-center items-center backdrop-filter backdrop-blur-lg bg-[rgb(7, 3, 252)] rounded-lg border border-black-300">
                 <img src={info.img} alt="icons" width={25} height={25} />
               </div>
             </a>

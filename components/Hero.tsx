@@ -52,7 +52,7 @@ export const Hero = () => {
                 projects.
               </p>
               <a
-                href="https://https://docs.google.com/document/d/1Q-n0NevTeiCJbfBqbLVCaRyA7Rb3xqlZ/edit"
+                href="https://drive.google.com/file/d/1Q-n0NevTeiCJbfBqbLVCaRyA7Rb3xqlZ/view"
                 target="_blank">
                 <MagicButton
                   title="View Resume"
