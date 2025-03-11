@@ -37,7 +37,6 @@ export const Hero = () => {
             <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black-100 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
           </div>
           <div className="flex justify-center relative  my-20 z-10">
-            
             <div className="flex flex-col items-center justify-center gap-5">
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
@@ -49,9 +48,12 @@ export const Hero = () => {
               <p className="max-w-lg sm:max-w-xl mx-auto text-xs sm:text-sm md:text-lg text-neutral-800 dark:text-neutral-200 text-center pb-2 sm:pb-10 md:pb-6">
                 Front-end Web Dev with 6 months of experience in building
                 beautiful and modern frameworks. Passionate about Web3, design,
-                exploring new techniques and contributing to open-source projects.
+                exploring new techniques and contributing to open-source
+                projects.
               </p>
-              <a href="" target="_blank">
+              <a
+                href="https://https://docs.google.com/document/d/1Q-n0NevTeiCJbfBqbLVCaRyA7Rb3xqlZ/edit"
+                target="_blank">
                 <MagicButton
                   title="View Resume"
                   icon={<FaLocationArrow />}

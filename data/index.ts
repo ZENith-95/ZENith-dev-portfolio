@@ -1,7 +1,7 @@
 export const navItems = [
   { name: "About", link: "#about" },
   { name: "Projects", link: "#projects" },
-  { name: "My Approach", link: "#myApproach" },
+  { name: "Experience", link: "#experience" },
   { name: "Contact", link: "#contact" },
 ];
 
@@ -76,7 +76,7 @@ export const projects = [
     des: "A website for browsing through delicacies and ordering meals from resturants ",
     img: "/p1.png",
     iconLists: ["/re.svg", "/css.svg", "/javascript.svg", "/font.svg",],
-    link: "food-bytes.vercel.app",
+    link: "https://food-bytes.vercel.app",
   },
   {
     id: 2,
@@ -84,7 +84,7 @@ export const projects = [
     des: "Simplify your Listening experience. Stay entertained and informed with exciting Podcasts.",
     img: "/p2.png",
     iconLists: ["/html.svg", "/css.svg", "/javascript.svg", "/font.svg",],
-    link: "zenith-95.github.io/Podcast/",
+    link: "https://zenith-95.github.io/Podcast/",
   },
   {
     id:7,
@@ -92,7 +92,7 @@ export const projects = [
     des: "Stay Organized, add and schedule and complete your tasks all in one place..",
     img: "/p7.png",
     iconLists: ["/re.svg", "/css.svg", "/javascript.svg", "/font.svg",],
-    link: "to-do-app-silk-kappa.vercel.app",
+    link: "https://to-do-app-silk-kappa.vercel.app",
   },
   {
     id: 3,
@@ -100,7 +100,7 @@ export const projects = [
     des: "Discover the wonders of the world. All the hottest travel locations and trending travel lifestyle blogs.",
     img: "/p3.png",
     iconLists: ["/html.svg", "/css.svg", "/javascript.svg",],
-    link: "zenith-95.github.io/mobile-view/",
+    link: "https://zenith-95.github.io/mobile-view/",
   },
   {
     id: 4,
@@ -108,7 +108,7 @@ export const projects = [
     des: "Take your Products to the next level. Our expert Marketers and designers..",
     img: "/p4.png",
     iconLists: ["/html.svg", "/css.svg", "/javascript.svg",],
-    link: "zenith-95.github.io/Productly-/",
+    link: "https://zenith-95.github.io/Productly-/",
   },
   {
     id: 5,
@@ -116,7 +116,7 @@ export const projects = [
     des: "Order a hot coffee today. Browse through our unique and exciting flavours made with love..",
     img: "/p5.png",
     iconLists: ["/html.svg", "/css.svg", "/javascript.svg",],
-    link: "zenith-95.github.io/Coffee-shop-JESI-Project--0-/",
+    link: "https://zenith-95.github.io/Coffee-shop-JESI-Project--0-/",
   },
   {
     id: 6,
@@ -124,7 +124,7 @@ export const projects = [
     des: "A simple arithmetic Calculator with a stylish futuristic and sleek UI..",
     img: "/p6.png",
     iconLists: ["/html.svg", "/css.svg", "/javascript.svg", "/three.svg",],
-    link: "zenith-95.github.io/calculator-Mini-Project-ZenCalc/",
+    link: "https://zenith-95.github.io/calculator-Mini-Project-ZenCalc/",
   },
 ];
 
