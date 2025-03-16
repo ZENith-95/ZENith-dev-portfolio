@@ -123,15 +123,15 @@ data.`);
       <div className="flex flex-col justify-center items-center max-w-full mx-auto">
         <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-10 py-10 px-3">
             <div className="flex items-center justify-center w-full">
-                <h1 className="lg:text-7xl md:text-6xl sm:text-4xl text-3xl">About <span className="text-purple" > Me</span></h1>
+                <h1 style={{fontFamily:"inherit"}} className="lg:text-7xl md:text-6xl font-kanit sm:text-4xl text-3xl">About <span className="text-purple" > Me</span></h1>
             </div>
-          <div className="relative w-full">
+          <div className="relative w-95%">
             <div
               className="relative group"
-              style={{ maxWidth: `100%` }}>
+              style={{ maxWidth: `98%` }}>
               <div
-                className={`no-scrollbar border overflow-x-auto max-w-full bg-opacity-10 backdrop-blur-md pb-4 pt-2 text-sm border-white border-opacity-10 p-3 z-10 rounded-md`}
-                style={{width: '100%'}}>
+                className={`no-scrollbar border overflow-x-auto max-w-full bg-opacity-10 backdrop-blur-md pb-4 pt-2 text-.5xl border-white border-opacity-10 p-3 z-10 rounded-md mx-3`}
+                style={{width: '95%', fontSize: ".8rem"}}>
                 <Code code={firstPart} show={true} maxHeight={21 * 4} />
                 <Code code={bodyName} animated={true} show={showBodyName} />
                 <Code code={bodyId} animated show={showBodyId} />
