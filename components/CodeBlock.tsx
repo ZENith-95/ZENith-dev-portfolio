@@ -131,7 +131,7 @@ data.`);
               style={{ maxWidth: `98%` }}>
               <div
                 className={`no-scrollbar border overflow-x-auto max-w-full bg-opacity-10 backdrop-blur-md pb-4 pt-2 text-.5xl border-white border-opacity-10 p-3 z-10 rounded-md mx-3`}
-                style={{width: '95%', fontSize: ".8rem"}}>
+                style={{ minWidth: '95%', fontSize: ".75rem"}}>
                 <Code code={firstPart} show={true} maxHeight={21 * 4} />
                 <Code code={bodyName} animated={true} show={showBodyName} />
                 <Code code={bodyId} animated show={showBodyId} />
