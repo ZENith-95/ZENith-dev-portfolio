@@ -11,7 +11,7 @@ export const gridItems = [
     title:
       "☕️Coffee-powered 🌐Web3 Dev & Code Conjurer. " +
       "Crafting DApps with blockchain grit and AI spark.",
-    description: "About ZENith",
+    description: "What's more?",
     className: "lg:col-span-3 md:col-span-6 md:row-span-4 lg:min-h-[60vh]",
     imgClassName: "w-full h-full",
     titleClassName: "justify-end",

@@ -2,8 +2,12 @@ import { withSentryConfig } from "@sentry/nextjs";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    domains: ["your-domain.com"], // Add domains for external images
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "shiki/wasm": "shiki/dist/index.js",
+    };
+    return config;
   },
 };
 
