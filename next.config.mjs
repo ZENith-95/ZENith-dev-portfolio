@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ["images.unsplash.com", "encrypted-tbn0.gstatic.com"],
+  },
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,

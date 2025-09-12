@@ -83,4 +83,7 @@
   .heading {
     @apply font-bold text-4xl md:text-5xl text-center font-kanit;
   }
+  .spaceship-cursor {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path style="fill:#b7e8c4" d="M426.667 448H85.333l128-298.667h85.334l128 298.667z"/><ellipse cx="256" cy="170.667" rx="234.667" ry="85.333" style="fill:#d6deff"/><ellipse cx="256" cy="170.667" rx="234.667" ry="85.333" style="fill:#33527d"/><ellipse cx="256" cy="149.333" rx="213.333" ry="64" style="fill:#5e7599"/><ellipse cx="288" cy="160" rx="160" ry="53.333" style="fill:#435e88"/><ellipse cx="256" cy="448" rx="170.667" ry="42.667" style="fill:#4cc66e"/><path d="M128 149.333a128 128 0 0 1 256 0s-42.667 21.334-128 21.334-128-21.334-128-21.334z" style="fill:#5e7599"/><ellipse cx="213.333" cy="74.667" rx="46.549" ry="26.012" transform="rotate(-28.869 213.333 74.667)" style="fill:#7d8fac"/><ellipse cx="192" cy="64" rx="23.886" ry="18.423" transform="rotate(-45.024 192 64)" style="fill:#adb9ca"/><circle cx="170.667" cy="106.667" r="21.333" style="fill:#eff2ff"/><circle cx="256" cy="128" r="21.333" style="fill:#eff2ff"/><circle cx="341.333" cy="106.667" r="21.333" style="fill:#eff2ff"/><path d="M149.323 469.344a21.359 21.359 0 0 1-19.594-29.75l64-149.334a21.33 21.33 0 1 1 39.208 16.813l-64 149.333a21.332 21.332 0 0 1-19.614 12.938z" style="fill:#d5f1dd"/></svg>') 16 16, auto;
+  }
 }
