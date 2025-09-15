@@ -100,7 +100,7 @@ export const AnimatedTestimonials = ({
 
   return (
     <div
-      className="w-full antialiased font-sans py-20 relative"
+      className="w-full antialiased font-sans py-12 md:py-20 relative min-h-screen"
       onTouchStart={(e) => (touchStartX.current = e.touches[0].clientX)}
       onTouchEnd={handleSwipe}
     >
@@ -109,9 +109,9 @@ export const AnimatedTestimonials = ({
       <div className="max-w-sm md:max-w-4xl mx-auto px-4 md:px-8 lg:px-20">
         {" "}
         {/* New wrapper for content */}
-        <div className="relative grid grid-cols-1 md:grid-cols-2  gap-20">
+        <div className="relative grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20">
           <div>
-            <div className="relative h-80 w-full">
+            <div className="relative h-52 sm:h-64 md:h-80 w-full">
               <AnimatePresence>
                 {testimonials.map((testimonial, index) => (
                   <motion.div
@@ -177,10 +177,10 @@ export const AnimatedTestimonials = ({
                 ease: "easeInOut",
               }}
             >
-              <h3 className="text-2xl font-bold dark:text-white text-black">
+              <h3 className="text-[1.35rem] md:text-2xl font-bold dark:text-white text-black">
                 {testimonials[active].name}
               </h3>
-              <motion.p className="text-lg text-gray-500 mt-8 dark:text-neutral-300">
+              <motion.p className="text-base md:text-lg text-gray-500 mt-4 md:mt-8 dark:text-neutral-300">
                 {testimonials[active].quote.split(" ").map((word, index) => (
                   <motion.span
                     key={index}
@@ -207,7 +207,7 @@ export const AnimatedTestimonials = ({
               </motion.p>
               <a
                 href={testimonials[active].redirect}
-                className="relative inline-flex items-center justify-center mt-4 px-8 py-2 overflow-hidden font-mono font-medium tracking-tighter text-white bg-gray-800 rounded-lg group"
+                className="relative inline-flex items-center justify-center mt-3 md:mt-4 px-6 md:px-8 py-2 overflow-hidden font-mono font-medium tracking-tighter text-white bg-gray-800 rounded-lg group"
               >
                 <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-purple rounded-full group-hover:w-56 group-hover:h-56"></span>
                 <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700"></span>

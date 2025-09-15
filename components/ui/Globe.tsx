@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Color, Scene, Fog, PerspectiveCamera, Vector3 } from "three";
 import ThreeGlobe from "three-globe";
 import { useThree, Object3DNode, Canvas, extend } from "@react-three/fiber";
+import { isWebGLAvailable } from "@/lib/webgl";
 import { OrbitControls } from "@react-three/drei";
 import countries from "@/data/globe.json";
 declare module "@react-three/fiber" {
@@ -244,6 +245,10 @@ export function WebGLRendererConfig() {
 
 export function World(props: WorldProps) {
   const { globeConfig } = props;
+  if (typeof window !== "undefined" && !isWebGLAvailable()) {
+    // Fallback: render nothing to avoid WebGL errors
+    return null;
+  }
   const scene = new Scene();
   scene.fog = new Fog(0xffffff, 400, 2000);
   return (

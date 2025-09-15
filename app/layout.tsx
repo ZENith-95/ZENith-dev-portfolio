@@ -3,6 +3,7 @@ import { Inter, Kanit } from "next/font/google";
 
 import "./globals.css";
 import { ThemeProvider } from "./provider";
+import GlowingLettersBackground from "@/components/ui/GlowingLettersBackground";
 
 const inter = Inter({ subsets: ["latin"] });
 const kanit = Kanit({
@@ -32,6 +33,7 @@ export default function RootLayout({
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange>
+          <GlowingLettersBackground />
           {children}
         </ThemeProvider>
       </body>

@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import React, { useMemo, useRef } from "react";
 import * as THREE from "three";
+import { isWebGLAvailable } from "@/lib/webgl";
 
 export const CanvasRevealEffect = ({
   animationSpeed = 0.4,
@@ -23,6 +24,19 @@ export const CanvasRevealEffect = ({
   dotSize?: number;
   showGradient?: boolean;
 }) => {
+  // Fallback gracefully when WebGL is not available (or contexts are exhausted)
+  const noWebGL = typeof window !== "undefined" && !isWebGLAvailable();
+  if (noWebGL) {
+    return (
+      <div className={cn("h-full relative w-full", containerClassName)}>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(203,172,249,0.06),transparent_60%)]" />
+        {showGradient && (
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-950 to-[84%]" />
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className={cn("h-full relative bg-white w-full", containerClassName)}>
       <div className="h-full w-full">
@@ -290,6 +304,7 @@ const ShaderMaterial = ({
 };
 
 const Shader: React.FC<ShaderProps> = ({ source, uniforms, maxFps = 60 }) => {
+  if (typeof window !== "undefined" && !isWebGLAvailable()) return null;
   return (
     <Canvas className="absolute inset-0  h-full w-full">
       <ShaderMaterial source={source} uniforms={uniforms} maxFps={maxFps} />

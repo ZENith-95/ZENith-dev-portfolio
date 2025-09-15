@@ -5,7 +5,6 @@ import { FloatingDock } from "./FloatingDock";
 import {
   IconBrandGithub,
   IconBrandX,
-  IconBrandInstagram,
   IconHome,
   IconSitemap,
   IconBook2,

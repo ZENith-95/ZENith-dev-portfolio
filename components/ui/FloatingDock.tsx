@@ -23,66 +23,13 @@ export const FloatingDock = ({
 }) => {
   return (
     <>
-      <FloatingDockDesktop items={items} className={desktopClassName} />
       <FloatingDockMobile items={items} className={mobileClassName} />
+      <FloatingDockDesktop items={items} className={desktopClassName} />
     </>
   );
 };
 
-const FloatingDockMobile = ({
-  items,
-  className,
-}: {
-  items: { title: string; icon: React.ReactNode; href: string }[];
-  className?: string;
-}) => {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className={cn("relative block md:hidden z-[100000]", className)}>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            layoutId="nav"
-            className="absolute bottom-full mb-2 inset-x-0 flex flex-col gap-2"
-          >
-            {items.map((item, idx) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  y: 10,
-                  transition: {
-                    delay: idx * 0.05,
-                  },
-                }}
-                transition={{ delay: (items.length - 1 - idx) * 0.05 }}
-              >
-                <Link
-                  href={item.href}
-                  key={item.title}
-                  className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-900 flex items-center justify-center"
-                >
-                  <div className="h-4 w-4">{item.icon}</div>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <button
-        onClick={() => setOpen(!open)}
-        className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-800 flex items-center justify-center"
-      >
-        <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
-      </button>
-    </div>
-  );
-};
+
 
 const FloatingDockDesktop = ({
   items,
@@ -97,7 +44,7 @@ const FloatingDockDesktop = ({
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        "flex max-w-fit md:min-w-[70vw] lg:min-w-fit fixed z-[95000] bottom-5 inset-x-0 mx-auto px-10 py-5 rounded-full border border-black/.1 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] items-center justify-center space-x-4",
+        "hidden md:flex max-w-fit md:min-w-[70vw] lg:min-w-fit fixed z-[95000] bottom-5 inset-x-0 mx-auto px-10 py-5 rounded-full border border-black/.1 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] items-center justify-center space-x-4",
         className
       )}
       style={{
@@ -111,6 +58,86 @@ const FloatingDockDesktop = ({
         <IconContainer mouseX={mouseX} key={item.title} {...item} />
       ))}
     </motion.div>
+  );
+};
+
+const FloatingDockMobile = ({
+  items,
+  className,
+}: {
+  items: { title: string; icon: React.ReactNode; href: string }[];
+  className?: string;
+}) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div
+      className={cn(
+        "md:hidden fixed z-[95000] bottom-5 inset-x-0 mx-auto w-fit",
+        className
+      )}
+    >
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.15 }}
+            className={
+              "mb-3 flex flex-col items-center gap-2 px-3 py-3 rounded-3xl border border-black/10 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
+            }
+            style={{
+              backdropFilter: "blur(12px) saturate(180%)",
+              backgroundColor: "rgba(31, 1, 65, 0.2)",
+              border: "1px solid rgba(255, 255, 255, 0.125)",
+            }}
+          >
+            {items.map((item, idx) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.15, delay: idx * 0.02 }}
+              >
+                <Link
+                  href={item.href}
+                  className="flex items-center gap-2 px-3 py-2 rounded-full bg-gray-100/50 dark:bg-neutral-800/80 border border-white/10"
+                  style={{
+                    backdropFilter: "blur(6px)",
+                  }}
+                  onClick={() => setOpen(false)}
+                >
+                  <span className="h-5 w-5 flex items-center justify-center">
+                    {item.icon}
+                  </span>
+                  <span className="text-xs font-medium text-neutral-700 dark:text-neutral-200">
+                    {item.title}
+                  </span>
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <button
+        type="button"
+        aria-label={open ? "Close dock" : "Open dock"}
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+        className={cn(
+          "h-12 w-12 rounded-full border border-black/10 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] flex items-center justify-center",
+          "bg-gray-100/60 dark:bg-neutral-800/80"
+        )}
+        style={{
+          backdropFilter: "blur(12px) saturate(180%)",
+          border: "1px solid rgba(255, 255, 255, 0.125)",
+        }}
+      >
+        <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-600 dark:text-neutral-300" />
+      </button>
+    </div>
   );
 };
 
