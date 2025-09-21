@@ -19,7 +19,7 @@ export const Hero = () => {
   return (
     <>
       <div className="pb-0 pt-36 xl:pt-0 lg:pt-10 md:pt-20">
-        <BackgroundLines className=" flex relative items-center justify-center w-full flex-col px-8 bg-transparent font-kanit">
+        <BackgroundLines className=" flex relative items-center justify-center w-full flex-col px-8 bg-transparent dark:bg-transparent font-kanit">
           <div className="spotlight">
             <Spotlight
               className="-top-40 -left-1 md:-left-32 md:-top-28 h-screen"
@@ -34,7 +34,7 @@ export const Hero = () => {
               fill="blue"
             />
           </div>
-          <div className="h-screen w-full dark:bg-transparent dark:bg-grid-white/[0.07] flex items-center justify-center absolute top-0 left-0">
+          <div className="h-screen w-full dark:bg-transparent flex items-center justify-center absolute top-0 left-0">
             <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:transparent [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
           </div>
           <div className="flex justify-center relative  my-20 z-10">

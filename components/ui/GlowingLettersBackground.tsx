@@ -223,10 +223,9 @@ export default function GlowingLettersBackground() {
   }, []);
 
   return (
-    <div className="pointer-events-none fixed inset-0 -z-10">
+    <div className="pointer-events-none absolute inset-0 -z-10 bg-black">
       <canvas ref={baseRef} className="absolute inset-0 h-full w-full" />
       <canvas ref={overlayRef} className="absolute inset-0 h-full w-full" />
     </div>
   );
 }
-

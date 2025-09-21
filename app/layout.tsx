@@ -33,8 +33,10 @@ export default function RootLayout({
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange>
-          <GlowingLettersBackground />
-          {children}
+          <div className="relative min-h-screen">
+            <GlowingLettersBackground />
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>
