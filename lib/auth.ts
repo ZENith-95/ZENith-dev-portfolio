@@ -1,4 +1,4 @@
-import { compare, hash } from "bcryptjs";
+﻿import { compare, hash } from "bcryptjs";
 import CredentialsProvider from "next-auth/providers/credentials";
 import type { NextAuthOptions } from "next-auth";
 
@@ -56,9 +56,9 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (token) {
-        session.user = session.user || ({} as any);
-        session.user.name = token.name ?? adminUsername ?? "Admin";
-        (session.user as any).role = token.role;
+        const user = session.user ?? ((session.user = {} as any));
+        user.name = token.name ?? adminUsername ?? "Admin";
+        (user as any).role = token.role;
       }
       return session;
     },
