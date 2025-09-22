@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+﻿import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI || "";
 
@@ -11,12 +11,17 @@ interface Cached {
   promise: Promise<typeof mongoose> | null;
 }
 
-let cached = (global as unknown as { mongoose?: Cached }).mongoose;
+type GlobalWithMongoose = typeof globalThis & {
+  mongoose?: Cached;
+};
 
-if (!cached) {
-  cached = { conn: null, promise: null };
-  (global as unknown as { mongoose: Cached }).mongoose = cached;
+const globalWithMongoose = globalThis as GlobalWithMongoose;
+
+if (!globalWithMongoose.mongoose) {
+  globalWithMongoose.mongoose = { conn: null, promise: null };
 }
+
+const cached = globalWithMongoose.mongoose!;
 
 export async function connectToDatabase() {
   if (cached.conn) {
