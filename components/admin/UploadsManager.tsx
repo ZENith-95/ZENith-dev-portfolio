@@ -51,7 +51,7 @@ export function UploadsManager({ initialUploads }: UploadsManagerProps) {
             <div className="space-y-3 p-4 text-sm text-white/70">
               <div>
                 <p className="text-white">{upload.filename}</p>
-                <p className="text-xs text-white/50">{(upload.size / 1024).toFixed(1)} KB · {upload.mimetype}</p>
+                <p className="text-xs text-white/50">{(upload.size / 1024).toFixed(1)} KB ï¿½ {upload.mimetype}</p>
               </div>
               <div className="flex gap-2">
                 <button
