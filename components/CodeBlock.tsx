@@ -1,5 +1,4 @@
 import React, { useState, memo, useEffect } from "react";
-import Image from "next/image";
 import { Highlight, themes } from "prism-react-renderer";
 
 export default function Page() {
@@ -14,19 +13,6 @@ export default function Page() {
         borderRadius: "2rem",
       }}>
       <SDK1 />
-      {/* Left-side full-height portrait */}
-      <div className="pointer-events-none hidden md:block absolute left-0 top-0 h-full w-56 lg:w-64 z-10">
-        <Image
-          src="/my_photo.png"
-          alt="My photo"
-          fill
-          sizes="(min-width: 1024px) 16rem, 14rem"
-          style={{ objectFit: "cover", borderTopLeftRadius: "1rem", borderBottomLeftRadius: "1rem" }}
-          priority
-        />
-        {/* Edge gradient for smoother blend into code area */}
-        <div className="absolute right-0 top-0 h-full w-10 lg:w-12 bg-gradient-to-r from-black/60 to-transparent z-10" />
-      </div>
     </div>
   );
 }
