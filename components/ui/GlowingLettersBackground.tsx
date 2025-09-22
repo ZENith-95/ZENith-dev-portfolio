@@ -69,16 +69,20 @@ export default function GlowingLettersBackground() {
     return result;
   };
 
-  const initBackground = (baseCtx: CanvasRenderingContext2D, overlayCtx: CanvasRenderingContext2D) => {
+  const initBackground = (
+    baseCtx: CanvasRenderingContext2D,
+    overlayCtx: CanvasRenderingContext2D
+  ) => {
+    const baseCanvas = baseCtx.canvas as HTMLCanvasElement | undefined;
+    const overlayCanvas = overlayCtx.canvas as HTMLCanvasElement | undefined;
+    if (!baseCanvas || !overlayCanvas) return;
+
     letterPositionsRef.current = [];
     letterInstancesRef.current = [];
 
     const { width, height } = getDocSize();
     widthRef.current = width;
     heightRef.current = height;
-
-    const baseCanvas = baseRef.current!;
-    const overlayCanvas = overlayRef.current!;
     baseCanvas.width = width;
     baseCanvas.height = height;
     overlayCanvas.width = width;
@@ -145,7 +149,10 @@ export default function GlowingLettersBackground() {
   };
 
   const redraw = (overlayCtx: CanvasRenderingContext2D) => {
-    overlayCtx.clearRect(0, 0, overlayRef.current!.width, overlayRef.current!.height);
+    const overlayCanvas = overlayCtx.canvas as HTMLCanvasElement | undefined;
+    if (!overlayCanvas) return;
+
+    overlayCtx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
 
     const now = Date.now();
     for (let idx = letterInstancesRef.current.length - 1; idx >= 0; idx--) {
@@ -156,14 +163,18 @@ export default function GlowingLettersBackground() {
       if (alpha <= 0 && now > letter.fadeout) {
         letterInstancesRef.current.splice(idx, 1);
         const [randomLetter] = getRandomAmountFromArray(letterPositionsRef.current, 1);
-        const animLength = LETTER_FADE_DURATION[0] + Math.random() * (LETTER_FADE_DURATION[1] - LETTER_FADE_DURATION[0]);
-        letterInstancesRef.current.push({
-          x: randomLetter.x,
-          y: randomLetter.y,
-          letter: randomLetter.letter,
-          timestamp: now,
-          fadeout: now + animLength * 1000,
-        });
+        if (randomLetter) {
+          const animLength =
+            LETTER_FADE_DURATION[0] +
+            Math.random() * (LETTER_FADE_DURATION[1] - LETTER_FADE_DURATION[0]);
+          letterInstancesRef.current.push({
+            x: randomLetter.x,
+            y: randomLetter.y,
+            letter: randomLetter.letter,
+            timestamp: now,
+            fadeout: now + animLength * 1000,
+          });
+        }
         continue;
       }
 
@@ -179,9 +190,13 @@ export default function GlowingLettersBackground() {
     rafRef.current = requestAnimationFrame(() => redraw(overlayCtx));
   };
 
-  const resizeAll = (baseCtx: CanvasRenderingContext2D, overlayCtx: CanvasRenderingContext2D) => {
-    const baseCanvas = baseRef.current!;
-    const overlayCanvas = overlayRef.current!;
+  const resizeAll = (
+    baseCtx: CanvasRenderingContext2D,
+    overlayCtx: CanvasRenderingContext2D
+  ) => {
+    const baseCanvas = baseCtx.canvas as HTMLCanvasElement | undefined;
+    const overlayCanvas = overlayCtx.canvas as HTMLCanvasElement | undefined;
+    if (!baseCanvas || !overlayCanvas) return;
 
     const { width, height } = getDocSize();
     widthRef.current = width;
@@ -218,7 +233,10 @@ export default function GlowingLettersBackground() {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       window.removeEventListener("resize", onResize);
-      if (resizeObserverRef.current) resizeObserverRef.current.disconnect();
+      if (resizeObserverRef.current) {
+        resizeObserverRef.current.disconnect();
+        resizeObserverRef.current = null;
+      }
     };
   }, []);
 

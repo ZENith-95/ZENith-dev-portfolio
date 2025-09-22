@@ -8,6 +8,7 @@ import {
   Vec3,
   Camera,
 } from "ogl";
+import { isWebGLAvailable } from "@/lib/webgl";
 
 type MetaBallsProps = {
   color?: string;
