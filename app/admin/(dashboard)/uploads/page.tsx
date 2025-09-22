@@ -6,13 +6,16 @@ export default async function UploadsPage() {
   await connectToDatabase();
   const uploads = await Upload.find().sort({ createdAt: -1 }).lean();
 
-  return <UploadsManager initialUploads={uploads.map((upload) => ({
-    id: upload._id.toString(),
-    filename: upload.filename,
-    url: upload.url,
-    size: upload.size,
-    mimetype: upload.mimetype,
-    createdAt: upload.createdAt,
-  }))} />;
+  return (
+    <UploadsManager
+      initialUploads={uploads.map((upload) => ({
+        id: upload._id.toString(),
+        filename: upload.filename,
+        url: upload.url,
+        size: upload.size,
+        mimetype: upload.mimetype,
+        createdAt: upload.createdAt ? new Date(upload.createdAt).toISOString() : "",
+      }))}
+    />
+  );
 }
-
