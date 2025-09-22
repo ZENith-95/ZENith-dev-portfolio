@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useUploadThing } from "@/lib/uploadthing-client";
 
 type PostEditorMode = "create" | "edit";
 
@@ -48,6 +49,7 @@ export function PostEditor({ mode, initialData }: PostEditorProps) {
   const [featured, setFeatured] = useState(initialData?.featured ?? false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const { startUpload, isUploading } = useUploadThing("blogImage");
 
   useEffect(() => {
     fetch("/api/tags")
@@ -73,12 +75,19 @@ export function PostEditor({ mode, initialData }: PostEditorProps) {
   const handleCoverUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
-    const formData = new FormData();
-    formData.append("file", file);
-    const res = await fetch("/api/uploads", { method: "POST", body: formData });
-    if (res.ok) {
-      const json = await res.json();
-      setCoverImage(json.data.url);
+    setMessage(null);
+    try {
+      const result = await startUpload([file]);
+      const url = result?.[0]?.url;
+      if (url) {
+        setCoverImage(url);
+        setMessage("Cover image uploaded");
+      } else {
+        setMessage("Upload failed. Please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+      setMessage("Upload failed. Please try again.");
     }
   };
 
@@ -136,14 +145,14 @@ export function PostEditor({ mode, initialData }: PostEditorProps) {
         <div className="flex gap-2">
           <button
             onClick={() => savePost(false)}
-            disabled={loading}
+            disabled={loading || isUploading}
             className="rounded-full border border-white/10 px-4 py-2 text-sm text-white/70 transition hover:border-purple-400 hover:text-white disabled:opacity-50"
           >
             Save draft
           </button>
           <button
             onClick={() => savePost(true)}
-            disabled={loading}
+            disabled={loading || isUploading}
             className="rounded-full border border-purple-500/40 bg-purple-500/30 px-4 py-2 text-sm text-purple-100 transition hover:bg-purple-500/40 disabled:opacity-50"
           >
             Publish
@@ -187,6 +196,7 @@ export function PostEditor({ mode, initialData }: PostEditorProps) {
             <input
               type="file"
               accept="image/*"
+              disabled={isUploading}
               onChange={handleCoverUpload}
               className="w-full rounded-2xl border border-dashed border-white/20 bg-black/40 px-4 py-6 text-sm text-white/60"
             />

@@ -1,10 +1,11 @@
-import mongoose, { Schema, type Model } from "mongoose";
+﻿import mongoose, { Schema, type Model } from "mongoose";
 
 export interface UploadDocument extends mongoose.Document {
   filename: string;
   url: string;
   size: number;
   mimetype: string;
+  key?: string;
   createdAt: Date;
 }
 
@@ -14,6 +15,7 @@ const UploadSchema = new Schema<UploadDocument>(
     url: { type: String, required: true },
     size: { type: Number, required: true },
     mimetype: { type: String, required: true },
+    key: { type: String },
   },
   { timestamps: { createdAt: true, updatedAt: false } }
 );

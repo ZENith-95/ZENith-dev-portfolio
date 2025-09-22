@@ -1,12 +1,14 @@
 ﻿export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
+
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { connectToDatabase } from "@/lib/db";
 import { Upload } from "@/models/Upload";
-import { promises as fs } from "fs";
-import { join } from "path";
+import { UTApi } from "uploadthing/server";
+
+const utapi = new UTApi();
 
 export async function DELETE(_: Request, { params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions);
@@ -20,11 +22,9 @@ export async function DELETE(_: Request, { params }: { params: { id: string } })
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  if (upload.url) {
-    const filePath = join(process.cwd(), "public", upload.url.replace(/^\//, ""));
-    await fs.unlink(filePath).catch(() => null);
+  if (upload.key) {
+    await utapi.deleteFiles(upload.key).catch(() => null);
   }
 
   return NextResponse.json({ success: true });
 }
-
