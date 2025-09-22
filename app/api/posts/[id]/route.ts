@@ -1,3 +1,5 @@
+﻿export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -93,4 +95,7 @@ export async function DELETE(_: NextRequest, { params }: { params: { id: string 
   await Post.findByIdAndDelete(params.id);
   return NextResponse.json({ success: true });
 }
+
+
+
 

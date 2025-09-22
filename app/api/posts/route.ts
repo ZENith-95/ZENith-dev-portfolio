@@ -1,3 +1,5 @@
+﻿export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -111,4 +113,5 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({ data: post }, { status: 201 });
 }
+
 
