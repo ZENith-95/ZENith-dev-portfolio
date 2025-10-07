@@ -1,6 +1,7 @@
 ﻿import mongoose, { Schema, type Model } from "mongoose";
 
 export interface UploadDocument extends mongoose.Document {
+  _id: mongoose.Types.ObjectId;
   filename: string;
   url: string;
   size: number;

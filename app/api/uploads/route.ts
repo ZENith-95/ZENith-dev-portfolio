@@ -56,20 +56,26 @@ export async function POST(request: NextRequest) {
     mimetype: file.type || "image",
     key: objectPath,
   });
-  const createdDoc: UploadDocument | null = Array.isArray(created) ? (created[0] as UploadDocument) : (created as UploadDocument | null);
+  const createdDoc = (Array.isArray(created) ? created[0] : created) as UploadDocument | undefined;
 
   if (!createdDoc) {
     return NextResponse.json({ error: "Failed to create upload record" }, { status: 500 });
   }
 
+  const id = String(createdDoc._id);
+  const createdTimestamp =
+    createdDoc.createdAt instanceof Date
+      ? createdDoc.createdAt.toISOString()
+      : new Date().toISOString();
+
   return NextResponse.json({
     data: {
-      id: createdDoc._id.toString(),
+      id,
       url: publicUrl,
       filename: createdDoc.filename,
       size: createdDoc.size,
       mimetype: createdDoc.mimetype,
-      createdAt: createdDoc.createdAt?.toISOString?.() ?? new Date().toISOString(),
+      createdAt: createdTimestamp,
       path: objectPath,
     },
   });
