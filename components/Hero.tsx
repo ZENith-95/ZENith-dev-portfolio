@@ -18,7 +18,7 @@ export const Hero = () => {
 
   return (
     <>
-      <div className="pb-0 pt-36 xl:pt-0 lg:pt-10 md:pt-20">
+      <div className="pb-0 pt-10 md:pt-16 lg:pt-8 xl:pt-0">
         <BackgroundLines className=" flex relative items-center justify-center w-full flex-col px-8 bg-transparent dark:bg-transparent font-kanit">
           <div className="spotlight">
             <Spotlight
@@ -47,13 +47,13 @@ export const Hero = () => {
                 Hello World, <br /> I am <FlipWords words={words} />
               </motion.h2>
               <p className="max-w-lg sm:max-w-xl mx-auto text-xs sm:text-sm md:text-lg text-neutral-800 dark:text-neutral-200 text-center pb-2 sm:pb-10 md:pb-6">
-                Front-end Web Dev with 6 months of experience in building
+                Front-end Web Dev with 2 years of experience in building
                 beautiful and modern frameworks. Passionate about Web3, design,
                 exploring new techniques and contributing to open-source
                 projects.
               </p>
               <a
-                href="https://drive.google.com/file/d/1Q-n0NevTeiCJbfBqbLVCaRyA7Rb3xqlZ/view"
+                href="https://drive.google.com/file/d/17B9S4Q0UOeGLHkWSb7jBchiNV2PwUaVT/view?usp+drivesdk"
                 target="_blank">
                 <MagicButton
                   title="View Resume"

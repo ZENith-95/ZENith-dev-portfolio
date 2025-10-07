@@ -67,7 +67,7 @@ export function FeaturedCarousel({ posts, intervalMs = 7000 }: FeaturedCarouselP
   }
 
   return (
-    <section className="relative mx-auto flex max-w-6xl flex-col gap-6 py-10">
+    <section className="relative mx-auto flex max-w-6xl flex-col gap-6 py-3 sm:py-4 md:py-6">
       <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)_minmax(0,1fr)]">
         <div className="hidden lg:flex lg:flex-col lg:gap-4">
           {leftPosts.map((post) => (
