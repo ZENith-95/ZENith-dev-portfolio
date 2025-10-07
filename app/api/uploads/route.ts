@@ -9,7 +9,7 @@ import { extname } from "path";
 import { authOptions } from "@/lib/auth";
 import { connectToDatabase } from "@/lib/db";
 import { getSupabaseAdminClient } from "@/lib/supabase-server";
-import { Upload } from "@/models/Upload";
+import { Upload, type UploadDocument } from "@/models/Upload";
 
 const BUCKET = process.env.SUPABASE_STORAGE_BUCKET ?? "uploads";
 
@@ -56,15 +56,20 @@ export async function POST(request: NextRequest) {
     mimetype: file.type || "image",
     key: objectPath,
   });
+  const createdDoc: UploadDocument | null = Array.isArray(created) ? (created[0] as UploadDocument) : (created as UploadDocument | null);
+
+  if (!createdDoc) {
+    return NextResponse.json({ error: "Failed to create upload record" }, { status: 500 });
+  }
 
   return NextResponse.json({
     data: {
-      id: created._id.toString(),
+      id: createdDoc._id.toString(),
       url: publicUrl,
-      filename: created.filename,
-      size: created.size,
-      mimetype: created.mimetype,
-      createdAt: created.createdAt?.toISOString?.() ?? new Date().toISOString(),
+      filename: createdDoc.filename,
+      size: createdDoc.size,
+      mimetype: createdDoc.mimetype,
+      createdAt: createdDoc.createdAt?.toISOString?.() ?? new Date().toISOString(),
       path: objectPath,
     },
   });
