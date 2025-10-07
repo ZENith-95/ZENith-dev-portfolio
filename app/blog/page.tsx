@@ -3,6 +3,7 @@ import { FeaturedCarousel, type FeaturedPost } from "@/components/blog/FeaturedC
 import { connectToDatabase } from "@/lib/db";
 import { Post } from "@/models/Post";
 import { Tag } from "@/models/Tag";
+import { Dock } from "@/components/ui/Dock";
 
 export const dynamic = "force-dynamic";
 
@@ -59,6 +60,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-black via-slate-950 to-purple-950 pb-16">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(139,92,246,0.25)_0%,_rgba(0,0,0,0)_55%)]" />
+      <Dock />
       <div className="relative z-10">
         <FeaturedCarousel posts={featuredSource} />
 

@@ -34,15 +34,52 @@ export function FeaturedCarousel({ posts, intervalMs = 7000 }: FeaturedCarouselP
   }
 
   const current = posts[index];
-  const previous = posts[(index - 1 + posts.length) % posts.length];
-  const next = posts[(index + 1) % posts.length];
+
+  const totalPosts = posts.length;
+  const seenIndices = new Set<number>([index]);
+  const rightPosts: FeaturedPost[] = [];
+  const leftPosts: FeaturedPost[] = [];
+
+  for (let offset = 1; offset < totalPosts; offset += 1) {
+    const nextIndex = (index + offset) % totalPosts;
+    if (!seenIndices.has(nextIndex)) {
+      rightPosts.push(posts[nextIndex]);
+      seenIndices.add(nextIndex);
+    }
+
+    const prevIndex = (index - offset + totalPosts) % totalPosts;
+    if (!seenIndices.has(prevIndex)) {
+      leftPosts.push(posts[prevIndex]);
+      seenIndices.add(prevIndex);
+    }
+  }
+
+  if (leftPosts.length === 0 && rightPosts.length > 1) {
+    const moved = rightPosts.pop();
+    if (moved) {
+      leftPosts.push(moved);
+    }
+  } else if (rightPosts.length === 0 && leftPosts.length > 1) {
+    const moved = leftPosts.pop();
+    if (moved) {
+      rightPosts.push(moved);
+    }
+  }
 
   return (
     <section className="relative mx-auto flex max-w-6xl flex-col gap-6 py-10">
-      <div className="grid gap-6 lg:grid-cols-[1fr_minmax(0,2fr)_1fr]">
-        <SideCard post={previous} position="left" />
+      <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)_minmax(0,1fr)]">
+        <div className="hidden lg:flex lg:flex-col lg:gap-4">
+          {leftPosts.map((post) => (
+            <SideCard key={post.slug} post={post} position="left" />
+          ))}
+        </div>
         <MainHeroCard post={current} />
-        <SideCard post={next} position="right" />
+        <div className="hidden lg:flex lg:flex-col lg:gap-4">
+          {rightPosts.map((post) => (
+            <SideCard key={post.slug} post={post} position="right" />
+          ))}
+        </div>
       </div>
       <div className="flex justify-center gap-2">
         {posts.map((_, i) => (
@@ -103,7 +140,7 @@ function SideCard({ post, position }: { post: FeaturedPost; position: "left" | "
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className={`group relative hidden overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl transition hover:border-purple-400 hover:bg-white/10 lg:flex ${position === "left" ? "justify-end" : "justify-start"}`}
+      className={`group relative hidden h-fit w-full overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl transition hover:border-purple-400 hover:bg-white/10 lg:flex lg:self-start ${position === "left" ? "justify-end" : "justify-start"}`}
     >
       <div className="absolute inset-0 bg-gradient-to-br from-transparent via-purple-500/10 to-transparent opacity-0 transition group-hover:opacity-100" />
       <div className={`relative flex max-w-xs flex-col gap-4 ${position === "left" ? "text-right" : "text-left"}`}>

@@ -10,6 +10,7 @@ const kanit = Kanit({
   subsets: ["latin"],
   weight: ["100", "300", "400", "500", "700", "900"],
   display: "swap",
+  variable: "--font-kanit",
 });
 
 export const metadata: Metadata = {
@@ -23,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={kanit.className} suppressHydrationWarning>
+    <html lang="en" className={`${kanit.variable} ${kanit.className} dark`} suppressHydrationWarning>
       <head>
         <link rel="icon" href="/zen_ith.png" sizes="any" />
       </head>
@@ -31,7 +32,8 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
-          enableSystem
+          forcedTheme="dark"
+          enableSystem={false}
           disableTransitionOnChange>
           <div className="relative min-h-screen">
             <GlowingLettersBackground />

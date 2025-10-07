@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useUploadThing } from "@/lib/uploadthing-client";
 
 type PostEditorMode = "create" | "edit";
 
@@ -49,7 +48,8 @@ export function PostEditor({ mode, initialData }: PostEditorProps) {
   const [featured, setFeatured] = useState(initialData?.featured ?? false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
-  const { startUpload, isUploading } = useUploadThing("blogImage");
+  const [deleting, setDeleting] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
     fetch("/api/tags")
@@ -74,11 +74,30 @@ export function PostEditor({ mode, initialData }: PostEditorProps) {
 
   const handleCoverUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (!file) return;
+    if (!file) {
+      return;
+    }
+
     setMessage(null);
+    setIsUploading(true);
+
     try {
-      const result = await startUpload([file]);
-      const url = result?.[0]?.url;
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("folder", "blog");
+
+      const response = await fetch("/api/uploads", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Upload failed");
+      }
+
+      const json = await response.json();
+      const url = json?.data?.url as string | undefined;
+
       if (url) {
         setCoverImage(url);
         setMessage("Cover image uploaded");
@@ -86,8 +105,11 @@ export function PostEditor({ mode, initialData }: PostEditorProps) {
         setMessage("Upload failed. Please try again.");
       }
     } catch (error) {
-      console.error(error);
+      console.error("Upload error:", error);
       setMessage("Upload failed. Please try again.");
+    } finally {
+      event.target.value = "";
+      setIsUploading(false);
     }
   };
 
@@ -129,6 +151,40 @@ export function PostEditor({ mode, initialData }: PostEditorProps) {
     }
   };
 
+  const handleDelete = async () => {
+    if (mode !== "edit" || !initialData?._id) {
+      return;
+    }
+
+    const confirmed = window.confirm("Delete this post? This action cannot be undone.");
+    if (!confirmed) {
+      return;
+    }
+
+    setDeleting(true);
+    setMessage(null);
+
+    try {
+      const res = await fetch(`/api/posts/${initialData?._id}`, {
+        method: "DELETE",
+      });
+
+      if (res.ok) {
+        setDeleting(false);
+        router.push("/admin/posts");
+        router.refresh();
+      } else {
+        const json = await res.json().catch(() => ({ error: "Failed to delete the post" }));
+        setMessage(typeof json.error === "string" ? json.error : "Failed to delete the post");
+        setDeleting(false);
+      }
+    } catch (error) {
+      console.error("Delete error:", error);
+      setMessage("Failed to delete the post");
+      setDeleting(false);
+    }
+  };
+
   return (
     <div className="space-y-8">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -143,16 +199,26 @@ export function PostEditor({ mode, initialData }: PostEditorProps) {
           </p>
         </div>
         <div className="flex gap-2">
+          {mode === "edit" && (
+            <button
+              type="button"
+              onClick={handleDelete}
+              disabled={loading || isUploading || deleting}
+              className="rounded-full border border-red-500/40 bg-red-500/20 px-4 py-2 text-sm text-red-100 transition hover:bg-red-500/30 disabled:opacity-50"
+            >
+              Delete
+            </button>
+          )}
           <button
             onClick={() => savePost(false)}
-            disabled={loading || isUploading}
+            disabled={loading || isUploading || deleting}
             className="rounded-full border border-white/10 px-4 py-2 text-sm text-white/70 transition hover:border-purple-400 hover:text-white disabled:opacity-50"
           >
             Save draft
           </button>
           <button
             onClick={() => savePost(true)}
-            disabled={loading || isUploading}
+            disabled={loading || isUploading || deleting}
             className="rounded-full border border-purple-500/40 bg-purple-500/30 px-4 py-2 text-sm text-purple-100 transition hover:bg-purple-500/40 disabled:opacity-50"
           >
             Publish
@@ -282,4 +348,5 @@ export function PostEditor({ mode, initialData }: PostEditorProps) {
     </div>
   );
 }
+
 

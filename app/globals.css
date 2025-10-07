@@ -69,7 +69,7 @@
 @layer base {
   * {
     @apply border-border !scroll-smooth;
-    font-family: var(--font-kanit);
+    font-family: var(--font-kanit), sans-serif;
   }
   body {
     @apply bg-background text-foreground;

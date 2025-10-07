@@ -28,7 +28,8 @@ export function UploadsManager({ initialUploads }: UploadsManagerProps) {
   };
 
   const handleCopy = async (url: string) => {
-    await navigator.clipboard.writeText(`${window.location.origin}${url}`);
+    const fullUrl = url.startsWith("http") ? url : `${window.location.origin}${url}`;
+    await navigator.clipboard.writeText(fullUrl);
     setMessage("Link copied to clipboard");
   };
 

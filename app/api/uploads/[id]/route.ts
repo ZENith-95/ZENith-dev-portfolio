@@ -3,12 +3,13 @@ export const runtime = "nodejs";
 
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+
 import { authOptions } from "@/lib/auth";
 import { connectToDatabase } from "@/lib/db";
+import { getSupabaseAdminClient } from "@/lib/supabase-server";
 import { Upload } from "@/models/Upload";
-import { UTApi } from "uploadthing/server";
 
-const utapi = new UTApi();
+const BUCKET = process.env.SUPABASE_STORAGE_BUCKET ?? "uploads";
 
 export async function DELETE(_: Request, { params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions);
@@ -23,7 +24,8 @@ export async function DELETE(_: Request, { params }: { params: { id: string } })
   }
 
   if (upload.key) {
-    await utapi.deleteFiles(upload.key).catch(() => null);
+    const supabase = getSupabaseAdminClient();
+    await supabase.storage.from(BUCKET).remove([upload.key]).catch(() => null);
   }
 
   return NextResponse.json({ success: true });

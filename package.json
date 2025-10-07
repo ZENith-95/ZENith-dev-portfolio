@@ -16,7 +16,6 @@
         "@tsparticles/react": "^3.0.0",
         "@tsparticles/slim": "^3.9.1",
         "@types/three": "^0.163.0",
-        "@uploadthing/react": "^7.3.3",
         "bcryptjs": " ^2.4.3 ",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.0",
@@ -40,9 +39,9 @@
         "three": "^0.163.0",
         "three-globe": "^2.31.0",
         "tsparticles": "^3.9.1",
-        "uploadthing": "^7.7.4",
         "vercel": "^34.0.0",
-        "zod": " ^3.22.4 "
+        "zod": " ^3.22.4 ",
+        "@supabase/supabase-js": "^2.44.4"
     },
     "devDependencies": {
         "@types/bcryptjs": " ^2.4.2 ",
